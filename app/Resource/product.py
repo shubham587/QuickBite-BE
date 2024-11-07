@@ -13,6 +13,7 @@
 from flask_restful import Resource
 from flask import request, jsonify, json
 from app import db
+from flask_jwt_extended import jwt_required
 from bson import json_util
 from ..Schema.ProductSchema import ProductSchema
 from marshmallow import ValidationError
@@ -44,11 +45,11 @@ class Product(Resource):
                 
         
         return {"msg": "success", "v_data": validated_data}, 200
-    
+    @jwt_required()
     def get(self):
         location = request.args.get("location")
         seller_name = request.args.get("seller_name")
-        food_pref = request.args.get("food_pref")
+        food_pref = request.args.get("type")
         
         def err_response(err_msg, err_code):
             return {"errors": err_msg}, err_code

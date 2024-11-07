@@ -31,5 +31,13 @@ def check_if_token_revoked(jwt_header, jwt_payload):
     return token is not None
 
 from app.Resource.product import Product
+from app.Resource.auth import UserRegistration, UserLogin, UserLogout
+from app.Resource.cart import Cart
+from app.Resource.Order import Order
 
 api.add_resource(Product, "/product")
+api.add_resource(UserRegistration, "/signup")
+api.add_resource(UserLogin, "/login")
+api.add_resource(UserLogout, "/logout")
+api.add_resource(Cart, "/cart")
+api.add_resource(Order, "/order")
