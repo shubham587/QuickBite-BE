@@ -1,0 +1,27 @@
+name: Docker Build and Run
+
+on:
+  push:
+    branches:
+      - main  # Trigger on pushes to the main branch
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker image
+        run: docker build -t quickbite-be .
+
+      - name: Run Docker container
+        run: docker run --name quickbite-container -p 5000:5000 quickbite-be
+
+      # Optionally, you can add a cleanup step to remove the container after testing
+      - name: Cleanup
+        run: docker rm -f quickbite-container
